@@ -23,6 +23,7 @@ namespace bustub {
 
 #define BPLUSTREE_TYPE BPlusTree<KeyType, ValueType, KeyComparator>
 
+enum class Operation { Read, Insert, Remove };
 /**
  * Main class providing the API for the Interactive B+ Tree.
  *
@@ -74,6 +75,18 @@ class BPlusTree {
   // read data from file and remove one by one
   void RemoveFromFile(const std::string &file_name, Transaction *transaction = nullptr);
 
+  // my function
+  auto GetLeafPage(const KeyType &key, Transaction *transaction, Operation op, bool first_pass = true) -> Page *;
+  void GetSiblings(BPlusTreePage *tree_page, page_id_t &left_sibling_id, page_id_t &right_sibling_id,
+                   Transaction *transaction);
+  void HandleOverFlow(BPlusTreePage *page, Transaction *transaction);
+  auto TryBorrow(BPlusTreePage *page, BPlusTreePage *sibling_page, InternalPage *parent_page, bool isLeft) -> bool;
+  void MergePage(BPlusTreePage *left_page, BPlusTreePage *right_page, InternalPage *parent_page);
+  auto IsPageSafe(BPlusTreePage *tree_page, Operation op) -> bool;
+  void ReleaseWLatches(Transaction *transaction);
+  auto GetPageFromTransaction(page_id_t page_id, Transaction *transaction) -> Page *;
+  void ReleaseSiblings(page_id_t left_sibling_id, page_id_t right_sibling_id, Page *page_l, Page *page_r);
+
  private:
   void UpdateRootPageId(int insert_record = 0);
 
@@ -89,6 +102,8 @@ class BPlusTree {
   KeyComparator comparator_;
   int leaf_max_size_;
   int internal_max_size_;
+
+  ReaderWriterLatch root_latch_;
 };
 
 }  // namespace bustub

@@ -68,7 +68,7 @@ void CheckTxnRowLockSize(Transaction *txn, size_t shared_size, size_t exclusive_
 }
 
 // NOLINTNEXTLINE
-TEST_F(TransactionTest, DISABLED_SimpleInsertRollbackTest) {
+TEST_F(TransactionTest, SimpleInsertRollbackTest) {
   // txn1: INSERT INTO empty_table2 VALUES (200, 20), (201, 21), (202, 22)
   // txn1: abort
   // txn2: SELECT * FROM empty_table2;
@@ -91,7 +91,7 @@ TEST_F(TransactionTest, DISABLED_SimpleInsertRollbackTest) {
 }
 
 // NOLINTNEXTLINE
-TEST_F(TransactionTest, DISABLED_DirtyReadsTest) {
+TEST_F(TransactionTest, DirtyReadsTest) {
   bustub_->GenerateTestTable();
 
   // txn1: INSERT INTO empty_table2 VALUES (200, 20), (201, 21), (202, 22)
@@ -119,4 +119,44 @@ TEST_F(TransactionTest, DISABLED_DirtyReadsTest) {
   delete txn1;
 }
 
+TEST_F(TransactionTest, DISABLE_RepeatableReadsTest) {
+  bustub_->GenerateTestTable();
+
+  // txn1: INSERT INTO empty_table2 VALUES (200, 20), (201, 21), (202, 22)
+  // txn2: SELECT * FROM empty_table2;
+  // txn1: commit
+  // txn2: SELECT * FROM empty_table2;
+  // txn2: commit
+
+  auto noop_writer = NoopWriter();
+
+  bustub_->ExecuteSql("CREATE TABLE empty_table2 (colA int, colB int)", noop_writer);
+
+  // Transaction 1 starts
+  auto *txn1 = bustub_->txn_manager_->Begin(nullptr, IsolationLevel::REPEATABLE_READ);
+  bustub_->ExecuteSqlTxn("INSERT INTO empty_table2 VALUES (200, 20), (201, 21), (202, 22)", noop_writer, txn1);
+
+  // Transaction 2 starts
+  auto *txn2 = bustub_->txn_manager_->Begin(nullptr, IsolationLevel::REPEATABLE_READ);
+
+  std::stringstream ss1;
+  auto writer2 = SimpleStreamWriter(ss1, true);
+  bustub_->ExecuteSqlTxn("SELECT * FROM empty_table2", writer2, txn2);
+
+  // Transaction 1 commits
+  bustub_->txn_manager_->Commit(txn1);
+  delete txn1;
+
+  // Transaction 2 reads again
+  std::stringstream ss2;
+  bustub_->ExecuteSqlTxn("SELECT * FROM empty_table2", writer2, txn2);
+
+  // Transaction 2 commits
+  bustub_->txn_manager_->Commit(txn2);
+  delete txn2;
+
+  // Checking that the results are the same and as expected
+  EXPECT_EQ(ss1.str(), "200\t20\t\n201\t21\t\n202\t22\t\n");
+  EXPECT_EQ(ss2.str(), "200\t20\t\n201\t21\t\n202\t22\t\n");
+}
 }  // namespace bustub

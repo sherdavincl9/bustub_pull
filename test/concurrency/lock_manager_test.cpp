@@ -109,7 +109,7 @@ void TableLockTest1() {
     delete txns[i];
   }
 }
-TEST(LockManagerTest, DISABLED_TableLockTest1) { TableLockTest1(); }  // NOLINT
+TEST(LockManagerTest, TableLockTest1) { TableLockTest1(); }  // NOLINT
 
 /** Upgrading single transaction from S -> X */
 void TableLockUpgradeTest1() {
@@ -118,8 +118,17 @@ void TableLockUpgradeTest1() {
 
   table_oid_t oid = 0;
   auto txn1 = txn_mgr.Begin();
+  auto txn2 = txn_mgr.Begin();
 
   /** Take S lock */
+  EXPECT_EQ(true, lock_mgr.LockTable(txn1, LockManager::LockMode::SHARED, oid));
+  CheckTableLockSizes(txn1, 1, 0, 0, 0, 0);
+
+  // /** take x lock */
+  // EXPECT_EQ(true, lock_mgr.LockTable(txn2, LockManager::LockMode::EXCLUSIVE, oid));
+  // CheckTableLockSizes(txn1, 0, 1, 0, 0, 0);
+
+  /** upgrade S lock */
   EXPECT_EQ(true, lock_mgr.LockTable(txn1, LockManager::LockMode::SHARED, oid));
   CheckTableLockSizes(txn1, 1, 0, 0, 0, 0);
 
@@ -127,14 +136,22 @@ void TableLockUpgradeTest1() {
   EXPECT_EQ(true, lock_mgr.LockTable(txn1, LockManager::LockMode::EXCLUSIVE, oid));
   CheckTableLockSizes(txn1, 0, 1, 0, 0, 0);
 
+  /** Upgrade X to X */
+  EXPECT_EQ(true, lock_mgr.LockTable(txn1, LockManager::LockMode::EXCLUSIVE, oid));
+  CheckTableLockSizes(txn1, 0, 1, 0, 0, 0);
+
   /** Clean up */
   txn_mgr.Commit(txn1);
   CheckCommitted(txn1);
   CheckTableLockSizes(txn1, 0, 0, 0, 0, 0);
+  txn_mgr.Commit(txn2);
+  CheckCommitted(txn2);
+  CheckTableLockSizes(txn2, 0, 0, 0, 0, 0);
 
   delete txn1;
+  delete txn2;
 }
-TEST(LockManagerTest, DISABLED_TableLockUpgradeTest1) { TableLockUpgradeTest1(); }  // NOLINT
+TEST(LockManagerTest, TableLockUpgradeTest1) { TableLockUpgradeTest1(); }  // NOLINT
 
 void RowLockTest1() {
   LockManager lock_mgr{};
@@ -190,7 +207,7 @@ void RowLockTest1() {
     delete txns[i];
   }
 }
-TEST(LockManagerTest, DISABLED_RowLockTest1) { RowLockTest1(); }  // NOLINT
+TEST(LockManagerTest, RowLockTest1) { RowLockTest1(); }  // NOLINT
 
 void TwoPLTest1() {
   LockManager lock_mgr{};
@@ -239,6 +256,6 @@ void TwoPLTest1() {
   delete txn;
 }
 
-TEST(LockManagerTest, DISABLED_TwoPLTest1) { TwoPLTest1(); }  // NOLINT
+TEST(LockManagerTest, TwoPLTest1) { TwoPLTest1(); }  // NOLINT
 
 }  // namespace bustub

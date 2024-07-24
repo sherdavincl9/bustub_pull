@@ -15,8 +15,10 @@
 #include <algorithm>
 #include <condition_variable>  // NOLINT
 #include <list>
+#include <map>
 #include <memory>
 #include <mutex>  // NOLINT
+#include <set>
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
@@ -64,7 +66,7 @@ class LockManager {
   class LockRequestQueue {
    public:
     /** List of lock requests for the same resource (table or row) */
-    std::list<LockRequest *> request_queue_;
+    std::list<std::shared_ptr<LockRequest>> request_queue_;
     /** For notifying blocked transactions on this rid */
     std::condition_variable cv_;
     /** txn_id of an upgrading transaction (if any) */
@@ -297,6 +299,137 @@ class LockManager {
    */
   auto RunCycleDetection() -> void;
 
+  auto IsUpgradeCompatible(LockMode new_mode, LockMode current_mode) -> bool {
+    if (current_mode == LockMode::INTENTION_SHARED &&
+        (new_mode == LockMode::SHARED || new_mode == LockMode::EXCLUSIVE || new_mode == LockMode::INTENTION_EXCLUSIVE ||
+         new_mode == LockMode::SHARED_INTENTION_EXCLUSIVE)) {
+      return true;
+    }
+    if (current_mode == LockMode::SHARED &&
+        (new_mode == LockMode::EXCLUSIVE || new_mode == LockMode::SHARED_INTENTION_EXCLUSIVE)) {
+      return true;
+    }
+    if (current_mode == LockMode::INTENTION_EXCLUSIVE &&
+        (new_mode == LockMode::EXCLUSIVE || new_mode == LockMode::SHARED_INTENTION_EXCLUSIVE)) {
+      return true;
+    }
+    if (current_mode == LockMode::SHARED_INTENTION_EXCLUSIVE && new_mode == LockMode::EXCLUSIVE) {
+      return true;
+    }
+    return false;
+  }
+
+  auto InsertOrDeleteTableLockSet(Transaction *txn, const std::shared_ptr<LockRequest> &lock_request, bool insert)
+      -> void {
+    switch (lock_request->lock_mode_) {
+      case LockMode::SHARED:
+        if (insert) {
+          txn->GetSharedTableLockSet()->insert(lock_request->oid_);
+        } else {
+          txn->GetSharedTableLockSet()->erase(lock_request->oid_);
+        }
+        break;
+      case LockMode::EXCLUSIVE:
+        if (insert) {
+          txn->GetExclusiveTableLockSet()->insert(lock_request->oid_);
+        } else {
+          txn->GetExclusiveTableLockSet()->erase(lock_request->oid_);
+        }
+        break;
+      case LockMode::INTENTION_SHARED:
+        if (insert) {
+          txn->GetIntentionSharedTableLockSet()->insert(lock_request->oid_);
+        } else {
+          txn->GetIntentionSharedTableLockSet()->erase(lock_request->oid_);
+        }
+        break;
+      case LockMode::INTENTION_EXCLUSIVE:
+        if (insert) {
+          txn->GetIntentionExclusiveTableLockSet()->insert(lock_request->oid_);
+        } else {
+          txn->GetIntentionExclusiveTableLockSet()->erase(lock_request->oid_);
+        }
+        break;
+      case LockMode::SHARED_INTENTION_EXCLUSIVE:
+        if (insert) {
+          txn->GetSharedIntentionExclusiveTableLockSet()->insert(lock_request->oid_);
+        } else {
+          txn->GetSharedIntentionExclusiveTableLockSet()->erase(lock_request->oid_);
+        }
+        break;
+    }
+  }
+
+  auto InsertOrDeleteRowLockSet(Transaction *txn, const std::shared_ptr<LockRequest> &lock_request, bool insert)
+      -> void {
+    auto s_row_lock_set = txn->GetSharedRowLockSet();
+    auto x_row_lock_set = txn->GetExclusiveRowLockSet();
+    switch (lock_request->lock_mode_) {
+      case LockMode::SHARED:
+        if (insert) {
+          InsertRowLockSet(s_row_lock_set, lock_request->oid_, lock_request->rid_);
+        } else {
+          DeleteRowLockSet(s_row_lock_set, lock_request->oid_, lock_request->rid_);
+        }
+        break;
+      case LockMode::EXCLUSIVE:
+        if (insert) {
+          InsertRowLockSet(x_row_lock_set, lock_request->oid_, lock_request->rid_);
+        } else {
+          DeleteRowLockSet(x_row_lock_set, lock_request->oid_, lock_request->rid_);
+        }
+        break;
+      case LockMode::INTENTION_SHARED:
+      case LockMode::INTENTION_EXCLUSIVE:
+      case LockMode::SHARED_INTENTION_EXCLUSIVE:
+        break;
+    }
+  }
+
+  auto InsertRowLockSet(const std::shared_ptr<std::unordered_map<table_oid_t, std::unordered_set<RID>>> &lock_set,
+                        const table_oid_t &oid, const RID &rid) -> void {
+    auto row_lock_set = lock_set->find(oid);
+    if (row_lock_set == lock_set->end()) {
+      lock_set->emplace(oid, std::unordered_set<RID>{});
+      row_lock_set = lock_set->find(oid);
+    }
+    row_lock_set->second.emplace(rid);
+  }
+
+  auto DeleteRowLockSet(const std::shared_ptr<std::unordered_map<table_oid_t, std::unordered_set<RID>>> &lock_set,
+                        const table_oid_t &oid, const RID &rid) -> void {
+    auto row_lock_set = lock_set->find(oid);
+    if (row_lock_set == lock_set->end()) {
+      return;
+    }
+    row_lock_set->second.erase(rid);
+  }
+
+  auto GrantLock(const std::shared_ptr<LockRequest> &lock_request,
+                 const std::shared_ptr<LockRequestQueue> &lock_request_queue) -> bool;
+
+  auto Dfs(txn_id_t txn_id) -> bool {
+    if (safe_set_.find(txn_id) != safe_set_.end()) {
+      return false;
+    }
+    active_set_.insert(txn_id);
+
+    std::vector<txn_id_t> &next_node_vector = waits_for_[txn_id];
+    std::sort(next_node_vector.begin(), next_node_vector.end());
+    for (txn_id_t const next_node : next_node_vector) {
+      if (active_set_.find(next_node) != active_set_.end()) {
+        return true;
+      }
+      if (Dfs(next_node)) {
+        return true;
+      }
+    }
+
+    active_set_.erase(txn_id);
+    safe_set_.insert(txn_id);
+    return false;
+  }
+
  private:
   /** Fall 2022 */
   /** Structure that holds lock requests for a given table oid */
@@ -314,6 +447,12 @@ class LockManager {
   /** Waits-for graph representation. */
   std::unordered_map<txn_id_t, std::vector<txn_id_t>> waits_for_;
   std::mutex waits_for_latch_;
+
+  std::set<txn_id_t> txn_set_;
+  std::set<txn_id_t> safe_set_;
+  std::unordered_set<txn_id_t> active_set_;
+  std::unordered_map<txn_id_t, table_oid_t> map_txn_oid_;
+  std::unordered_map<txn_id_t, RID> map_txn_rid_;
 };
 
 }  // namespace bustub

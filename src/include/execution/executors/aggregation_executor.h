@@ -72,13 +72,58 @@ class SimpleAggregationHashTable {
    */
   void CombineAggregateValues(AggregateValue *result, const AggregateValue &input) {
     for (uint32_t i = 0; i < agg_exprs_.size(); i++) {
+      auto &result_value = result->aggregates_[i];
+      auto &input_value = input.aggregates_[i];
       switch (agg_types_[i]) {
         case AggregationType::CountStarAggregate:
-        case AggregationType::CountAggregate:
-        case AggregationType::SumAggregate:
-        case AggregationType::MinAggregate:
-        case AggregationType::MaxAggregate:
+          // count(*) 对每一行都执行 +1 操作
+          result_value = result_value.Add(ValueFactory::GetIntegerValue(1));
           break;
+        case AggregationType::CountAggregate:
+          // count(column) 只对非空行进行 +1 操作，同时 bustub 不支持 count(distinct column) 聚合操作
+          if (!input_value.IsNull()) {
+            // 如果 result_value 为空需要从 ValueFactory 中获取
+            if (result_value.IsNull()) {
+              result_value = ValueFactory::GetIntegerValue(0);
+            }
+            result_value = result_value.Add(ValueFactory::GetIntegerValue(1));
+          }
+          break;
+        case AggregationType::SumAggregate:
+          // sum(column) 只处理非空行
+          if (!input_value.IsNull()) {
+            // 如果 result_value 为空初始化为 input_value ，否则直接累加
+            if (result_value.IsNull()) {
+              result_value = input_value;
+            } else {
+              result_value = result_value.Add(input_value);
+            }
+          }
+          break;
+        case AggregationType::MinAggregate:
+          // min(column) 只处理非空行
+          if (!input_value.IsNull()) {
+            // 如果 result_value 为空初始化为 input_value ，否则取最小值
+            if (result_value.IsNull()) {
+              result_value = input_value;
+            } else {
+              result_value = result_value.Min(input_value);
+            }
+          }
+          break;
+        case AggregationType::MaxAggregate:
+          // max(column) 只处理非空行
+          if (!input_value.IsNull()) {
+            // 如果 result_value 为空初始化为 input_value ，否则取最大值
+            if (result_value.IsNull()) {
+              result_value = input_value;
+            } else {
+              result_value = result_value.Max(input_value);
+            }
+          }
+          break;
+        default:
+          throw Exception("unknown AggregationType");
       }
     }
   }
@@ -100,6 +145,19 @@ class SimpleAggregationHashTable {
    */
   void Clear() { ht_.clear(); }
 
+  auto CheckIsNullTable(AggregateValue *value) -> bool {
+    // 从未检查过或者表不为空
+    if (is_checked_ || !ht_.empty()) {
+      return false;
+    }
+
+    is_checked_ = true;
+    // 遍历聚合表达式列表，为每个聚合函数生成初始的聚合值
+    for (size_t i = 0; i < agg_exprs_.size(); i++) {
+      *value = GenerateInitialAggregateValue();
+    }
+    return true;
+  }
   /** An iterator over the aggregation hash table */
   class Iterator {
    public:
@@ -142,6 +200,8 @@ class SimpleAggregationHashTable {
   const std::vector<AbstractExpressionRef> &agg_exprs_;
   /** The types of aggregations that we have */
   const std::vector<AggregationType> &agg_types_;
+  /** 标识是否进行过空表检查 */
+  bool is_checked_ = false;
 };
 
 /**
@@ -201,8 +261,8 @@ class AggregationExecutor : public AbstractExecutor {
   /** The child executor that produces tuples over which the aggregation is computed */
   std::unique_ptr<AbstractExecutor> child_;
   /** Simple aggregation hash table */
-  // TODO(Student): Uncomment SimpleAggregationHashTable aht_;
+  SimpleAggregationHashTable aht_;
   /** Simple aggregation hash table iterator */
-  // TODO(Student): Uncomment SimpleAggregationHashTable::Iterator aht_iterator_;
+  SimpleAggregationHashTable::Iterator aht_iterator_;
 };
 }  // namespace bustub

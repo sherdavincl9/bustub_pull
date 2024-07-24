@@ -50,6 +50,15 @@ class BPlusTreeLeafPage : public BPlusTreePage {
   void SetNextPageId(page_id_t next_page_id);
   auto KeyAt(int index) const -> KeyType;
 
+  // My function
+  void SetKeyValueAt(int index, const KeyType &key, const ValueType &value);
+  void InsertByKey(const KeyType &key, const ValueType &value, const KeyComparator &compara);
+  void RemoveByKey(const KeyType &key, const KeyComparator &compara);
+  void DataMove(B_PLUS_TREE_LEAF_PAGE_TYPE *new_page, int count);
+  auto LowerBound(const KeyType &key, const KeyComparator &compara) -> int;
+  auto GetKeyValueAt(int index) const -> const MappingType &;
+  auto ValueAt(int index) const -> ValueType;
+
  private:
   page_id_t next_page_id_;
   // Flexible array member for page data.

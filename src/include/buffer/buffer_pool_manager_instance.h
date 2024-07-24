@@ -177,5 +177,25 @@ class BufferPoolManagerInstance : public BufferPoolManager {
   }
 
   // TODO(student): You may add additional private members and helper functions
+
+  auto GetFrame(frame_id_t *frame_id) -> bool {
+    frame_id_t fid;
+    if (!free_list_.empty()) {
+      fid = free_list_.front();
+      free_list_.pop_front();
+      *frame_id = fid;
+      return true;
+    }
+    if (replacer_->Evict(&fid)) {
+      if (pages_[fid].IsDirty()) {
+        disk_manager_->WritePage(pages_[fid].GetPageId(), pages_[fid].GetData());
+        pages_[fid].is_dirty_ = false;
+      }
+      page_table_->Remove(pages_[fid].GetPageId());
+      *frame_id = fid;
+      return true;
+    }
+    return false;
+  }
 };
 }  // namespace bustub

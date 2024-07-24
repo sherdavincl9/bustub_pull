@@ -76,7 +76,6 @@ class ExtendibleHashTable : public HashTable<K, V> {
    * @return True if the key is found, false otherwise.
    */
   auto Find(const K &key, V &value) -> bool override;
-
   /**
    *
    * TODO(P1): Add implementation
@@ -197,5 +196,4 @@ class ExtendibleHashTable : public HashTable<K, V> {
   auto GetLocalDepthInternal(int dir_index) const -> int;
   auto GetNumBucketsInternal() const -> int;
 };
-
 }  // namespace bustub

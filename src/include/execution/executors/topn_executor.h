@@ -13,6 +13,7 @@
 #pragma once
 
 #include <memory>
+#include <stack>
 #include <vector>
 
 #include "execution/executor_context.h"
@@ -52,5 +53,11 @@ class TopNExecutor : public AbstractExecutor {
  private:
   /** The topn plan node to be executed */
   const TopNPlanNode *plan_;
+  /** The child executor from which tuples are obtained */
+  std::unique_ptr<AbstractExecutor> child_executor_;
+  // 按順序存储优先队列中的tuple
+  /** The stack to store sorted top-n tuple*/
+  std::stack<Tuple> top_entries_;
+  size_t heap_size_{0};
 };
 }  // namespace bustub
