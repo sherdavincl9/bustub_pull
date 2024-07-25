@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="(empty)"
+	BuildStamp="20231106-1000-Experimental"
+	Name="(empty)"
+	Generator="ctest-3.22.1"
+	CompilerName=""
+	CompilerVersion=""
+	OSName="Linux"
+	Hostname="chen-virtual-machine"
+	OSRelease="6.2.0-36-generic"
+	OSVersion="#37~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Mon Oct  9 15:34:04 UTC 2"
+	OSPlatform="x86_64"
+	Is64Bits="1"
+	VendorString="GenuineIntel"
+	VendorID="Intel Corporation"
+	FamilyID="6"
+	ModelID="154"
+	ProcessorCacheSize="24576"
+	NumberOfLogicalCPU="2"
+	NumberOfPhysicalCPU="2"
+	TotalVirtualMemory="3219"
+	TotalPhysicalMemory="3871"
+	LogicalProcessorsPerPhysical="1"
+	ProcessorClockFrequency="2688"
+	>
+	<Testing>
+		<StartDateTime>Nov 06 18:18 CST</StartDateTime>
+		<StartTestTime>1699265901</StartTestTime>
+		<TestList>
+			<Test>./test/SQLLogicTest.p3.leaderboard-q3</Test>
+		</TestList>
+		<Test Status="failed">
+			<Name>SQLLogicTest.p3.leaderboard-q3</Name>
+			<Path>./test</Path>
+			<FullName>./test/SQLLogicTest.p3.leaderboard-q3</FullName>
+			<FullCommandLine>/home/chen/bustub/build/bin/bustub-sqllogictest "/home/chen/bustub/test/sql/p3.leaderboard-q3.slt" "--verbose" "-d" "--in-memory"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="text/string" name="Exit Code">
+					<Value>Failed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Exit Value">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>1.67518</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/home/chen/bustub/build/bin/bustub-sqllogictest "/home/chen/bustub/test/sql/p3.leaderboard-q3.slt" "--verbose" "-d" "--in-memory"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value encoding="base64" compression="gzip">eJztV91v2zYQf57+ikPzYi+OZerLsmAHSNFsyBCnQdI+bEGgyhKtsJFFRZRSe8X+9x1JybUbpy22PWydBZsUj7/7Iu+oo3G6jGlRMZ7Dm1VBIQjgglfAFkVGFzSvaGJMqRBRqqZe1vM5LS85z6ZRjrQSmIB8Gw8rWvXhbA4rXsNd9EhhznIm7nBmjWJ5Ci8vpz3AcSQolHTBEVjdyX/JPwBdW5WxnALL4d1M6Q4LVB4utPaQ5aKK8pj246J41ze+xbwe8DxbwYLH91BFs4wKiEoKoi4KXuJ83xgvIpYfB8SgyyLDV+jwLgia0biCxx4kBP8WzEu+gI4B+Og59SofxCyiZeeRdCESCt4ODz9/szTE6q2ZFyyXgF4739MUq7sl5TNQS1rD9wL+2wJUOKgIC0MZqWE1hIzOK3jPZTy2wehsY3z4cEcxlglMJoDiMHseYSxhacnrAmYreDS6xhE+xgQhry/fnE3Pfju9QvzEuCz5e5Qqc+4j5l9RisnNwaA/6AG2RLXWLfyBpn0N2elI7CE2dle2TlfNuKr1VDtEFHa+nB519YAM5IgQjSaW7mzdOQ3GVRivZRmqod+wjLSV2hCLaIylLLHshsVy1NDVLJY2xxrqzm8wI2X8oGGxiRpamsXWFtmO7twG4ynMsGVRntkjzeJoixy9io6lMY6tFsdpWBzlmuM1LNoix9fdSGNctUQuaVhc5ZprN+urLXL1Orteg1FL5Poti3LNG3T1VgKcpCnuYoVnP+4iBqKKxq2G5V99+/9BbnsQpWlJ06iiOvzJRqI06fLk3XoGs0d+ExIXXZ1k4WylT5w2iAEuqMCP9znnxS/yiNQRPTnHMxOLjJImLMaNmsgMGIwPSH/QXXMCTPH0vI4jxSUrgsmnQ/cT6CeWVVhQfNyURibWppwvSPIR9oPRlhYjY19O7AV8J+XE6bIqI4jvaHwvArh5UTHUmgZLMgj6D/aLW0MToIiEQFkxl7V4RbfI1m6yvZvs7Ca7u8nebvJwN9nfTR7tJpPBJ/p4PH55+vPZhYFeA/GQheDPRkUeSvWx943j4+PTi1fGzeXJ9fUtlk7rlQtge9l0kWbIMu3vPSjBs30ymZxeXb2+CuCcRvfXUc4q9jstA0jQ8lhe2hZ4AytXGBXRvTCMV6yUESFHwOfg2rY7cHDDK9oRXXkbI8BnsgaUwyjLuDwPExU+gQq2gwEMlk7izuWtLwde0DKqeAk5/XBz26lzwdIcpzKep13omHd8QU1ciNyc1aKqZ9ixLDFnrCUciQfUkjK0VVSHrWgd2AcEdXmx7SSO1KUZguDJZfCsuSx+YWrbst5a1ism7hvojz14BnTO0xbThacuiTI29R3W/NpVNrCcgFjaOQudc4dze2RvOyf7TY82x53n9GOwLnhL2Vbp+4HdqLTl3s0dMvekSlElQRCGGCkRy/BtGt3Ttzl7GO+25ViCBYZyRkMdI1rCAtnCGvlq+hynNLsWpdr2ft/M2MxM49hc+l7oOUcZy+vlUZrXJrHk9PrH8jirE3T28FBOzVglTK0oLKqyfxeQgecGtqOdc6Rz1KHzmXROfo93rFWFOyPMzZjbGqgFI8NhQBqhLgodzp2ERr41Svy5FB2G6EAcom9lFcaYJKFSFotaGi1WIqGFMPOiysxdQLTb9QPiPUnGkfdXEpEmTxLxn0lDFLydhm5kfTdp6OIu79Nwn4Y70nBo/bvT0LO/nzT0AuLu03CfhjINr99OpydXvwZwkiQlFWKjmMUy1dtIS5mpuvy025xkPMeZvvEnWxZ/uQ==</Value>
+				</Measurement>
+			</Results>
+		</Test>
+		<EndDateTime>Nov 06 18:18 CST</EndDateTime>
+		<EndTestTime>1699265903</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

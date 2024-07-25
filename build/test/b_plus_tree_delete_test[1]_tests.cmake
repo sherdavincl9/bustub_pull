@@ -1,0 +1,5 @@
+add_test( BPlusTreeTests.DeleteTest1 /home/chen/bustub/build/test/b_plus_tree_delete_test [==[--gtest_filter=BPlusTreeTests.DeleteTest1]==] --gtest_also_run_disabled_tests [==[--gtest_color=auto]==] [==[--gtest_output=xml:/home/chen/bustub/build/test/b_plus_tree_delete_test.xml]==] [==[--gtest_catch_exceptions=0]==])
+set_tests_properties( BPlusTreeTests.DeleteTest1 PROPERTIES WORKING_DIRECTORY /home/chen/bustub/build/test SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==] TIMEOUT 120)
+add_test( BPlusTreeTests.DeleteTest2 /home/chen/bustub/build/test/b_plus_tree_delete_test [==[--gtest_filter=BPlusTreeTests.DeleteTest2]==] --gtest_also_run_disabled_tests [==[--gtest_color=auto]==] [==[--gtest_output=xml:/home/chen/bustub/build/test/b_plus_tree_delete_test.xml]==] [==[--gtest_catch_exceptions=0]==])
+set_tests_properties( BPlusTreeTests.DeleteTest2 PROPERTIES WORKING_DIRECTORY /home/chen/bustub/build/test SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==] TIMEOUT 120)
+set( b_plus_tree_delete_test_TESTS BPlusTreeTests.DeleteTest1 BPlusTreeTests.DeleteTest2)

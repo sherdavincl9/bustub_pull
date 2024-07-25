@@ -1,0 +1,93 @@
+Start testing: Nov 06 18:18 CST
+----------------------------------------------------------
+42/42 Testing: SQLLogicTest.p3.leaderboard-q3
+42/42 Test: SQLLogicTest.p3.leaderboard-q3
+Command: "/home/chen/bustub/build/bin/bustub-sqllogictest" "/home/chen/bustub/test/sql/p3.leaderboard-q3.slt" "--verbose" "-d" "--in-memory"
+Directory: /home/chen/bustub/build/test
+"SQLLogicTest.p3.leaderboard-q3" start time: Nov 06 18:18 CST
+Output:
+----------------------------------------------------------
+
+Exception Type :: Not implemented
+Message :: BufferPoolManager is not implemented yet. If you have finished implementing BPM, please remove the throw exception line in `buffer_pool_manager_instance.cpp`.
+BufferPoolManager is not implemented, only mock tables are supported.
+<main>:1
+explain (o) select v, d1, d2 from (
+    select
+        v, max(v1) as d1, max(v1) + max(v1) + max(v2) as d2,
+        min(v1), max(v2), min(v2), max(v1) + min(v1), max(v2) + min(v2), min(v1), max(v2), min(v2), max(v1) + min(v1), max(v2) + min(v2), min(v1), max(v2), min(v2), max(v1) + min(v1), max(v2) + min(v2), min(v1), max(v2), min(v2), max(v1) + min(v1), max(v2) + min(v2), min(v1), max(v2), min(v2), max(v1) + min(v1), max(v2) + min(v2), min(v1), max(v2), min(v2), max(v1) + min(v1), max(v2) + min(v2), min(v1), max(v2), min(v2), max(v1) + min(v1), max(v2) + min(v2), min(v1), max(v2), min(v2), max(v1) + min(v1), max(v2) + min(v2)
+    from __mock_t7 left join (select v4 from __mock_t8 where 1 == 2) on v < v4 group by v
+)
+----
+=== OPTIMIZER ===
+Projection { exprs=[#0.0, #0.1, #0.2] }
+  Projection { exprs=[#0.0, #0.1, ((#0.2+#0.3)+#0.4), #0.5, #0.6, #0.7, (#0.8+#0.9), (#0.10+#0.11), #0.12, #0.13, #0.14, (#0.15+#0.16), (#0.17+#0.18), #0.19, #0.20, #0.21, (#0.22+#0.23), (#0.24+#0.25), #0.26, #0.27, #0.28, (#0.29+#0.30), (#0.31+#0.32), #0.33, #0.34, #0.35, (#0.36+#0.37), (#0.38+#0.39), #0.40, #0.41, #0.42, (#0.43+#0.44), (#0.45+#0.46), #0.47, #0.48, #0.49, (#0.50+#0.51), (#0.52+#0.53), #0.54, #0.55, #0.56, (#0.57+#0.58), (#0.59+#0.60)] }
+    Agg { types=[max, max, max, max, min, max, min, max, min, max, min, min, max, min, max, min, max, min, min, max, min, max, min, max, min, min, max, min, max, min, max, min, min, max, min, max, min, max, min, min, max, min, max, min, max, min, min, max, min, max, min, max, min, min, max, min, max, min, max, min], aggregates=[#0.1, #0.1, #0.1, #0.2, #0.1, #0.2, #0.2, #0.1, #0.1, #0.2, #0.2, #0.1, #0.2, #0.2, #0.1, #0.1, #0.2, #0.2, #0.1, #0.2, #0.2, #0.1, #0.1, #0.2, #0.2, #0.1, #0.2, #0.2, #0.1, #0.1, #0.2, #0.2, #0.1, #0.2, #0.2, #0.1, #0.1, #0.2, #0.2, #0.1, #0.2, #0.2, #0.1, #0.1, #0.2, #0.2, #0.1, #0.2, #0.2, #0.1, #0.1, #0.2, #0.2, #0.1, #0.2, #0.2, #0.1, #0.1, #0.2, #0.2], group_by=[#0.0] }
+      NestedLoopJoin { type=Left, predicate=(#0.0<#1.0) }
+        MockScan { table=__mock_t7 }
+        Filter { predicate=(1=2) }
+          MockScan { table=__mock_t8 }
+	
+
+<main>:9
+select v, d1, d2 from (
+    select
+        v, max(v1) as d1, max(v1) + max(v1) + max(v2) as d2,
+        min(v1), max(v2), min(v2), max(v1) + min(v1), max(v2) + min(v2), min(v1), max(v2), min(v2), max(v1) + min(v1), max(v2) + min(v2), min(v1), max(v2), min(v2), max(v1) + min(v1), max(v2) + min(v2), min(v1), max(v2), min(v2), max(v1) + min(v1), max(v2) + min(v2), min(v1), max(v2), min(v2), max(v1) + min(v1), max(v2) + min(v2), min(v1), max(v2), min(v2), max(v1) + min(v1), max(v2) + min(v2), min(v1), max(v2), min(v2), max(v1) + min(v1), max(v2) + min(v2), min(v1), max(v2), min(v2), max(v1) + min(v1), max(v2) + min(v2)
+    from __mock_t7 left join (select v4 from __mock_t8 where 1 == 2) on v < v4 group by v
+)
+Extra checks: ["timing:x10:.q3"]
+timing pass 1 complete
+timing pass 2 complete
+timing pass 3 complete
+timing pass 4 complete
+timing pass 5 complete
+timing pass 6 complete
+timing pass 7 complete
+timing pass 8 complete
+timing pass 9 complete
+timing pass 10 complete
+<<<BEGIN
+.q3 16 9 19 13 7 6 8 8 7 8
+>>>END
+[PASS] extra check: timing:x10:.q3
+----
+
+
+=================================================================
+==6381==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 533504 byte(s) in 1 object(s) allocated from:
+    #0 0x4d5fed in operator new[](unsigned long) (/home/chen/bustub/build/bin/bustub-sqllogictest+0x4d5fed)
+    #1 0x6c34d4 in bustub::BufferPoolManagerInstance::BufferPoolManagerInstance(unsigned long, bustub::DiskManager*, unsigned long, bustub::LogManager*) /home/chen/bustub/src/buffer/buffer_pool_manager_instance.cpp:24:12
+    #2 0x57f393 in bustub::BustubInstance::BustubInstance() /home/chen/bustub/src/common/bustub_instance.cpp:88:32
+    #3 0x4f41f6 in std::__detail::_MakeUniq<bustub::BustubInstance>::__single_object std::make_unique<bustub::BustubInstance>() /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../include/c++/12/bits/unique_ptr.h:1065:34
+    #4 0x4e4efb in main /home/chen/bustub/tools/sqllogictest/sqllogictest.cpp:177:14
+    #5 0x7f4dea829d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+Direct leak of 96 byte(s) in 1 object(s) allocated from:
+    #0 0x4d5edd in operator new(unsigned long) (/home/chen/bustub/build/bin/bustub-sqllogictest+0x4d5edd)
+    #1 0x6c35a2 in bustub::BufferPoolManagerInstance::BufferPoolManagerInstance(unsigned long, bustub::DiskManager*, unsigned long, bustub::LogManager*) /home/chen/bustub/src/buffer/buffer_pool_manager_instance.cpp:25:17
+    #2 0x57f393 in bustub::BustubInstance::BustubInstance() /home/chen/bustub/src/common/bustub_instance.cpp:88:32
+    #3 0x4f41f6 in std::__detail::_MakeUniq<bustub::BustubInstance>::__single_object std::make_unique<bustub::BustubInstance>() /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../include/c++/12/bits/unique_ptr.h:1065:34
+    #4 0x4e4efb in main /home/chen/bustub/tools/sqllogictest/sqllogictest.cpp:177:14
+    #5 0x7f4dea829d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+Direct leak of 72 byte(s) in 1 object(s) allocated from:
+    #0 0x4d5edd in operator new(unsigned long) (/home/chen/bustub/build/bin/bustub-sqllogictest+0x4d5edd)
+    #1 0x6c3632 in bustub::BufferPoolManagerInstance::BufferPoolManagerInstance(unsigned long, bustub::DiskManager*, unsigned long, bustub::LogManager*) /home/chen/bustub/src/buffer/buffer_pool_manager_instance.cpp:26:15
+    #2 0x57f393 in bustub::BustubInstance::BustubInstance() /home/chen/bustub/src/common/bustub_instance.cpp:88:32
+    #3 0x4f41f6 in std::__detail::_MakeUniq<bustub::BustubInstance>::__single_object std::make_unique<bustub::BustubInstance>() /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../include/c++/12/bits/unique_ptr.h:1065:34
+    #4 0x4e4efb in main /home/chen/bustub/tools/sqllogictest/sqllogictest.cpp:177:14
+    #5 0x7f4dea829d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+SUMMARY: AddressSanitizer: 533672 byte(s) leaked in 3 allocation(s).
+<end of output>
+Test time =   1.68 sec
+----------------------------------------------------------
+Test Failed.
+"SQLLogicTest.p3.leaderboard-q3" end time: Nov 06 18:18 CST
+"SQLLogicTest.p3.leaderboard-q3" time elapsed: 00:00:01
+----------------------------------------------------------
+
+End testing: Nov 06 18:18 CST

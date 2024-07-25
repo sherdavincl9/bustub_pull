@@ -1,0 +1,7 @@
+add_test( HashTablePageTest.DirectoryPageSampleTest /home/chen/bustub/build/test/hash_table_page_test [==[--gtest_filter=HashTablePageTest.DISABLED_DirectoryPageSampleTest]==] --gtest_also_run_disabled_tests [==[--gtest_color=auto]==] [==[--gtest_output=xml:/home/chen/bustub/build/test/hash_table_page_test.xml]==] [==[--gtest_catch_exceptions=0]==])
+set_tests_properties( HashTablePageTest.DirectoryPageSampleTest PROPERTIES DISABLED TRUE)
+set_tests_properties( HashTablePageTest.DirectoryPageSampleTest PROPERTIES WORKING_DIRECTORY /home/chen/bustub/build/test SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==] TIMEOUT 120)
+add_test( HashTablePageTest.BucketPageSampleTest /home/chen/bustub/build/test/hash_table_page_test [==[--gtest_filter=HashTablePageTest.DISABLED_BucketPageSampleTest]==] --gtest_also_run_disabled_tests [==[--gtest_color=auto]==] [==[--gtest_output=xml:/home/chen/bustub/build/test/hash_table_page_test.xml]==] [==[--gtest_catch_exceptions=0]==])
+set_tests_properties( HashTablePageTest.BucketPageSampleTest PROPERTIES DISABLED TRUE)
+set_tests_properties( HashTablePageTest.BucketPageSampleTest PROPERTIES WORKING_DIRECTORY /home/chen/bustub/build/test SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==] TIMEOUT 120)
+set( hash_table_page_test_TESTS HashTablePageTest.DirectoryPageSampleTest HashTablePageTest.BucketPageSampleTest)

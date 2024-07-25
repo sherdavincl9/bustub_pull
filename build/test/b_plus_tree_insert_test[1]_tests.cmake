@@ -1,0 +1,7 @@
+add_test( BPlusTreeTests.InsertTest1 /home/chen/bustub/build/test/b_plus_tree_insert_test [==[--gtest_filter=BPlusTreeTests.InsertTest1]==] --gtest_also_run_disabled_tests [==[--gtest_color=auto]==] [==[--gtest_output=xml:/home/chen/bustub/build/test/b_plus_tree_insert_test.xml]==] [==[--gtest_catch_exceptions=0]==])
+set_tests_properties( BPlusTreeTests.InsertTest1 PROPERTIES WORKING_DIRECTORY /home/chen/bustub/build/test SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==] TIMEOUT 120)
+add_test( BPlusTreeTests.InsertTest2 /home/chen/bustub/build/test/b_plus_tree_insert_test [==[--gtest_filter=BPlusTreeTests.InsertTest2]==] --gtest_also_run_disabled_tests [==[--gtest_color=auto]==] [==[--gtest_output=xml:/home/chen/bustub/build/test/b_plus_tree_insert_test.xml]==] [==[--gtest_catch_exceptions=0]==])
+set_tests_properties( BPlusTreeTests.InsertTest2 PROPERTIES WORKING_DIRECTORY /home/chen/bustub/build/test SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==] TIMEOUT 120)
+add_test( BPlusTreeTests.InsertTest3 /home/chen/bustub/build/test/b_plus_tree_insert_test [==[--gtest_filter=BPlusTreeTests.InsertTest3]==] --gtest_also_run_disabled_tests [==[--gtest_color=auto]==] [==[--gtest_output=xml:/home/chen/bustub/build/test/b_plus_tree_insert_test.xml]==] [==[--gtest_catch_exceptions=0]==])
+set_tests_properties( BPlusTreeTests.InsertTest3 PROPERTIES WORKING_DIRECTORY /home/chen/bustub/build/test SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==] TIMEOUT 120)
+set( b_plus_tree_insert_test_TESTS BPlusTreeTests.InsertTest1 BPlusTreeTests.InsertTest2 BPlusTreeTests.InsertTest3)

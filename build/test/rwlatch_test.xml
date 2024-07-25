@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="1" failures="0" disabled="0" errors="0" time="0.173" timestamp="2023-12-06T21:48:05.607" name="AllTests">
+  <testsuite name="RWLatchTest" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.172" timestamp="2023-12-06T21:48:05.607">
+    <testcase name="BasicTest" file="/home/chen/bustub/test/common/rwlatch_test.cpp" line="43" status="run" result="completed" time="0.172" timestamp="2023-12-06T21:48:05.607" classname="RWLatchTest" />
+  </testsuite>
+</testsuites>

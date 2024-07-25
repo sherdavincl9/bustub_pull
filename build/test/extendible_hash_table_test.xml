@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="1" failures="0" disabled="0" errors="0" time="0.199" timestamp="2023-12-06T21:48:05.964" name="AllTests">
+  <testsuite name="ExtendibleHashTableTest" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.198" timestamp="2023-12-06T21:48:05.964">
+    <testcase name="ConcurrentInsertTest" file="/home/chen/bustub/test/container/hash/extendible_hash_table_test.cpp" line="45" status="run" result="completed" time="0.198" timestamp="2023-12-06T21:48:05.964" classname="ExtendibleHashTableTest" />
+  </testsuite>
+</testsuites>

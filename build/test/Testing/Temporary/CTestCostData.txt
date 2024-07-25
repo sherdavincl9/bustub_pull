@@ -1,0 +1,131 @@
+BinderTest.BindSelectValue 1 0.0884018
+BinderTest.BindSelectFrom 1 0.0727613
+BinderTest.BindSelectFromWhere 1 0.0982399
+BinderTest.BindSelectFromStar 1 0.0634378
+BinderTest.BindSelectFromMultipleCol 1 0.0700193
+BinderTest.BindSelectExpr 1 0.060471
+BinderTest.BindAgg 1 0.0764163
+BinderTest.BindCrossJoin 1 0.0677131
+BinderTest.BindCrossThreeWayJoin 1 0.0662515
+BinderTest.BindJoin 1 0.0861851
+BinderTest.BindThreeWayJoin 1 0.0671667
+BinderTest.BindSelectStar 1 0.0733789
+BinderTest.BindCountStar 1 0.0655959
+BinderTest.BindSelectTableColumn 1 0.0706569
+BinderTest.FailBindUnknownColumn 1 0.0699339
+BinderTest.BindCreateTable 1 0.073497
+BinderTest.BindInsert 1 0.0820533
+BinderTest.BindInsertSelect 1 0.0758591
+BinderTest.BindVarchar 1 0.0657258
+BinderTest.BindAliasInAgg 1 0.0908172
+BinderTest.BindAlias 1 0.0601442
+BinderTest.BindUnaryOp 1 0.0663107
+BinderTest.BindBinaryOp 1 0.0712397
+BinderTest.BindUncorrelatedSubquery 0 0
+BinderTest.BindUpdate 0 0
+BinderTest.BindDelete 0 0
+BufferPoolManagerInstanceTest.BinaryDataTest 1 0.104581
+BufferPoolManagerInstanceTest.SampleTest 1 0.0737936
+ClockReplacerTest.SampleTest 0 0
+LRUKReplacerTest.SampleTest 1 0.11318
+LRUReplacerTest.SampleTest 0 0
+CatalogTest.CreateTable1 0 0
+CatalogTest.CreateTable2 0 0
+CatalogTest.CreateTable3 0 0
+CatalogTest.CreateTableTest 0 0
+CatalogTest.CreateIndex1 0 0
+CatalogTest.CreateIndex2 0 0
+CatalogTest.CreateIndex3 0 0
+CatalogTest.QueryIndex1 0 0
+CatalogTest.QueryIndex2 0 0
+CatalogTest.FailedQuery1 0 0
+CatalogTest.FailedQuery2 0 0
+CatalogTest.FailedQuery3 0 0
+CatalogTest.FailedQuery4 0 0
+CatalogTest.FailedQuery5 0 0
+CatalogTest.IndexInteraction0 0 0
+CatalogTest.IndexInteraction1 0 0
+CatalogTest.IndexInteraction2 0 0
+CatalogTest.IndexInteraction3 0 0
+RWLatchTest.BasicTest 1 0.253612
+LockManagerDeadlockDetectionTest.EdgeTest 0 0
+LockManagerDeadlockDetectionTest.BasicDeadlockDetectionTest 0 0
+LockManagerTest.TableLockTest1 0 0
+LockManagerTest.TableLockUpgradeTest1 0 0
+LockManagerTest.RowLockTest1 0 0
+LockManagerTest.TwoPLTest1 0 0
+TransactionTest.SimpleInsertRollbackTest 0 0
+TransactionTest.DirtyReadsTest 0 0
+HashTablePageTest.DirectoryPageSampleTest 0 0
+HashTablePageTest.BucketPageSampleTest 0 0
+HashTableTest.SampleTest 0 0
+ExtendibleHashTableTest.SampleTest 1 0.104248
+ExtendibleHashTableTest.ConcurrentInsertTest 1 0.28656
+StarterTest.TrieNodeInsertTest 1 0.114037
+StarterTest.TrieNodeRemoveTest 1 0.0643545
+StarterTest.TrieInsertTest 1 0.0829113
+StarterTrieTest.RemoveTest 1 0.0657839
+StarterTrieTest.ConcurrentTest1 1 2.91282
+RecoveryTest.RedoTest 0 0
+RecoveryTest.UndoTest 0 0
+RecoveryTest.CheckpointTest 0 0
+BPlusTreeConcurrentTest.InsertTest1 0 0
+BPlusTreeConcurrentTest.InsertTest2 0 0
+BPlusTreeConcurrentTest.DeleteTest1 0 0
+BPlusTreeConcurrentTest.DeleteTest2 0 0
+BPlusTreeConcurrentTest.MixTest 0 0
+BPlusTreeTest.BPlusTreeContentionBenchmark 0 0
+BPlusTreeTest.BPlusTreeContentionBenchmark2 0 0
+BPlusTreeTests.DeleteTest1 0 0
+BPlusTreeTests.DeleteTest2 0 0
+BPlusTreeTests.InsertTest1 0 0
+BPlusTreeTests.InsertTest2 0 0
+BPlusTreeTests.InsertTest3 0 0
+DiskManagerTest.ReadWritePageTest 1 0.0679629
+DiskManagerTest.ReadWriteLogTest 1 0.0626537
+DiskManagerTest.ThrowBadFileTest 1 0.0969815
+TmpTuplePageTest.BasicTest 0 0
+TupleTest.TableHeapTest 0 0
+TypeTests.InvalidTypeTest 1 0.0912399
+TypeTests.GetInstanceTest 1 0.0719491
+TypeTests.MaxValueTest 1 0.0757236
+TypeTests.MinValueTest 1 0.0866357
+TypeTests.TemplateTest 1 0.0529056
+SQLLogicTest.p3.01-seqscan 0 0
+SQLLogicTest.p3.02-insert 0 0
+SQLLogicTest.p3.03-delete 0 0
+SQLLogicTest.p3.04-index-scan 0 0
+SQLLogicTest.p3.05-empty-table 0 0
+SQLLogicTest.p3.06-simple-agg 0 0
+SQLLogicTest.p3.07-group-agg-1 0 0
+SQLLogicTest.p3.08-group-agg-2 0 0
+SQLLogicTest.p3.09-simple-join 0 0
+SQLLogicTest.p3.10-multi-way-join 0 0
+SQLLogicTest.p3.11-repeat-execute 0 0
+SQLLogicTest.p3.12-nested-index-join 0 0
+SQLLogicTest.p3.13-sort-limit 0 0
+SQLLogicTest.p3.14-topn 0 0
+SQLLogicTest.p3.15-integration-1 0 0
+SQLLogicTest.p3.16-integration-2 0 0
+SQLLogicTest.p3.leaderboard-q1 0 0
+SQLLogicTest.p3.leaderboard-q2 0 0
+SQLLogicTest.p3.leaderboard-q3 1 0.33335
+---
+SQLLogicTest.p3.01-seqscan
+SQLLogicTest.p3.02-insert
+SQLLogicTest.p3.03-delete
+SQLLogicTest.p3.04-index-scan
+SQLLogicTest.p3.05-empty-table
+SQLLogicTest.p3.06-simple-agg
+SQLLogicTest.p3.07-group-agg-1
+SQLLogicTest.p3.08-group-agg-2
+SQLLogicTest.p3.09-simple-join
+SQLLogicTest.p3.10-multi-way-join
+SQLLogicTest.p3.11-repeat-execute
+SQLLogicTest.p3.12-nested-index-join
+SQLLogicTest.p3.13-sort-limit
+SQLLogicTest.p3.14-topn
+SQLLogicTest.p3.15-integration-1
+SQLLogicTest.p3.16-integration-2
+SQLLogicTest.p3.leaderboard-q1
+SQLLogicTest.p3.leaderboard-q2

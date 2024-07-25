@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="1" failures="0" disabled="0" errors="0" time="0.001" timestamp="2023-12-06T21:48:05.514" name="AllTests">
+  <testsuite name="LRUKReplacerTest" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0" timestamp="2023-12-06T21:48:05.515">
+    <testcase name="SampleTest" file="/home/chen/bustub/test/buffer/lru_k_replacer_test.cpp" line="19" status="run" result="completed" time="0" timestamp="2023-12-06T21:48:05.515" classname="LRUKReplacerTest" />
+  </testsuite>
+</testsuites>

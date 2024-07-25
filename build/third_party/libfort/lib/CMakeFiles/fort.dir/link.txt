@@ -1,0 +1,2 @@
+/usr/bin/llvm-ar-12 qc ../../../lib/libfort.a CMakeFiles/fort.dir/fort.c.o
+/usr/bin/llvm-ranlib-12 ../../../lib/libfort.a

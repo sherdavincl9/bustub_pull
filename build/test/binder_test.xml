@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="1" failures="0" disabled="0" errors="0" time="0.004" timestamp="2023-12-06T21:48:05.219" name="AllTests">
+  <testsuite name="BinderTest" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.004" timestamp="2023-12-06T21:48:05.219">
+    <testcase name="BindBinaryOp" file="/home/chen/bustub/test/binder/binder_test.cpp" line="171" status="run" result="completed" time="0.004" timestamp="2023-12-06T21:48:05.219" classname="BinderTest" />
+  </testsuite>
+</testsuites>
